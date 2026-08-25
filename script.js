@@ -254,6 +254,125 @@
     });
   });
 
+  // ===== SECTION 2: PICTURE BUFFER TRAIL EFFECT =====
+  function setupCursorBuffer() {
+    var bufferStage = document.getElementById('bufferStage');
+    var bufferTrail = document.getElementById('bufferTrail');
+    if (!bufferStage || !bufferTrail) return;
+
+    var trailImages = [
+      'peakpx (1).jpg',
+      'peakpx (2).jpg',
+      'peakpx (3).jpg',
+      'peakpx (4).jpg',
+      'peakpx (5).jpg',
+      'peakpx (6).jpg',
+      'peakpx (7).jpg',
+      'peakpx (8).jpg',
+      'peakpx (9).jpg',
+      'peakpx (10).jpg',
+      'peakpx (11).jpg',
+      'peakpx (12).jpg',
+      'peakpx (13).jpg',
+      'peakpx.jpg',
+    ];
+
+    var imageIndex = 0;
+    var lastX = 0;
+    var lastY = 0;
+    var zIndexCounter = 1;
+    var threshold = 70;
+
+    function spawnTrailItem(x, y) {
+      var item = document.createElement('div');
+      item.className = 'cursor-buffer__trail-item';
+
+      var rot = (Math.random() * 14 - 7).toFixed(1);
+      item.style.setProperty('--rot', rot + 'deg');
+      item.style.left = x + 'px';
+      item.style.top = y + 'px';
+      item.style.zIndex = ++zIndexCounter;
+
+      var img = document.createElement('img');
+      img.src = trailImages[imageIndex % trailImages.length];
+      img.alt = 'Bespoke kitchen detail';
+      imageIndex++;
+
+      item.appendChild(img);
+      bufferTrail.appendChild(item);
+
+      requestAnimationFrame(function() {
+        item.classList.add('is-active');
+      });
+
+      if (bufferTrail.children.length > 12) {
+        var oldest = bufferTrail.firstElementChild;
+        if (oldest) {
+          oldest.classList.add('is-fading');
+          setTimeout(function() {
+            if (oldest.parentNode) oldest.parentNode.removeChild(oldest);
+          }, 700);
+        }
+      }
+
+      setTimeout(function() {
+        if (item.parentNode) {
+          item.classList.add('is-fading');
+          setTimeout(function() {
+            if (item.parentNode) item.parentNode.removeChild(item);
+          }, 700);
+        }
+      }, 2200);
+    }
+
+    function handlePointerMove(e) {
+      var rect = bufferStage.getBoundingClientRect();
+      var clientX = e.clientX || (e.touches && e.touches[0] ? e.touches[0].clientX : null);
+      var clientY = e.clientY || (e.touches && e.touches[0] ? e.touches[0].clientY : null);
+
+      if (clientX === null || clientY === null) return;
+
+      var x = clientX - rect.left;
+      var y = clientY - rect.top;
+
+      if (x < 0 || x > rect.width || y < 0 || y > rect.height) return;
+
+      var dist = Math.hypot(x - lastX, y - lastY);
+      if (dist > threshold || (lastX === 0 && lastY === 0)) {
+        spawnTrailItem(x, y);
+        lastX = x;
+        lastY = y;
+      }
+    }
+
+    bufferStage.addEventListener('mousemove', handlePointerMove, { passive: true });
+    bufferStage.addEventListener('touchmove', handlePointerMove, { passive: true });
+
+    // Initial gentle preview trail on first viewport entry
+    var bufferObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (!entry.isIntersecting) return;
+        var rect = bufferStage.getBoundingClientRect();
+        var startX = rect.width * 0.22;
+        var endX = rect.width * 0.78;
+        var y = rect.height * 0.5;
+
+        for (var i = 0; i < 4; i++) {
+          (function(idx) {
+            setTimeout(function() {
+              var posX = startX + (endX - startX) * (idx / 3);
+              var posY = y + (idx % 2 === 0 ? -30 : 30);
+              spawnTrailItem(posX, posY);
+            }, idx * 260);
+          })(i);
+        }
+        bufferObserver.unobserve(bufferStage);
+      });
+    }, { threshold: 0.25 });
+
+    bufferObserver.observe(bufferStage);
+  }
+
   // ===== INIT =====
   window.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('resize', onResize, { passive: true });
@@ -265,4 +384,5 @@
   setProgress(0);
   preloadFrames();
   setupReveals();
+  setupCursorBuffer();
 })();
