@@ -567,6 +567,8 @@ nav {
   inset: 0;
   pointer-events: none;
   overflow: hidden;
+  z-index: 1;
+  isolation: isolate;
 }
 
 .cursor-buffer__trail-item {
@@ -603,7 +605,7 @@ nav {
 
 .cursor-buffer__content {
   position: relative;
-  z-index: 10;
+  z-index: 20;
   text-align: center;
   padding: 40px 24px;
   pointer-events: none;
