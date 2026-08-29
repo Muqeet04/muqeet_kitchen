@@ -346,10 +346,85 @@
     requestAnimationFrame(step);
   }
 
+  // ===== SECTION 6: SCROLL-DRIVEN REVIEWS =====
+  var reviewsSection = document.getElementById('reviews');
+  var reviewsBg = document.getElementById('reviewsBg');
+  var reviewCurr = document.getElementById('reviewCurr');
+  var reviewSlides = Array.prototype.slice.call(document.querySelectorAll('.review-slide'));
+  var reviewDots = Array.prototype.slice.call(document.querySelectorAll('#reviewsDots .dot-btn'));
+  var currentActiveReview = 0;
+
+  var REVIEW_COLORS = [
+    '#1A0A0E', // Review 1: Rich Licorice Wine
+    '#2C0E14', // Review 2: Deep Roasted Burgundy
+    '#1A0A16', // Review 3: Smoked Mulberry Charcoal
+    '#2E1310', // Review 4: Warm Terracotta Mahogany
+    '#140508'  // Review 5: Midnight Black Bean
+  ];
+
+  function computeReviewsTarget() {
+    if (!reviewsSection || !reviewSlides.length) return;
+    var rect = reviewsSection.getBoundingClientRect();
+    var total = reviewsSection.offsetHeight - window.innerHeight;
+    if (total <= 0) return;
+
+    var progress = clamp(-rect.top / total, 0, 0.999);
+    var numReviews = reviewSlides.length;
+    var targetIdx = Math.min(numReviews - 1, Math.floor(progress * numReviews));
+
+    if (targetIdx !== currentActiveReview) {
+      setActiveReview(targetIdx);
+    }
+  }
+
+  function setActiveReview(idx) {
+    currentActiveReview = idx;
+
+    reviewSlides.forEach(function(slide, i) {
+      if (i === idx) {
+        slide.classList.add('is-active');
+      } else {
+        slide.classList.remove('is-active');
+      }
+    });
+
+    reviewDots.forEach(function(dot, i) {
+      if (i === idx) {
+        dot.classList.add('is-active');
+      } else {
+        dot.classList.remove('is-active');
+      }
+    });
+
+    if (reviewCurr) {
+      reviewCurr.textContent = String(idx + 1).padStart(2, '0');
+    }
+
+    if (reviewsBg && REVIEW_COLORS[idx]) {
+      reviewsBg.style.backgroundColor = REVIEW_COLORS[idx];
+    }
+  }
+
+  function setupReviewsNav() {
+    reviewDots.forEach(function(dot) {
+      dot.addEventListener('click', function() {
+        var idx = parseInt(dot.dataset.idx, 10);
+        if (!isNaN(idx) && reviewsSection) {
+          var rect = reviewsSection.getBoundingClientRect();
+          var total = reviewsSection.offsetHeight - window.innerHeight;
+          var targetScroll = window.scrollY + rect.top + (total * (idx + 0.1) / reviewSlides.length);
+          window.scrollTo({ top: targetScroll, behavior: 'smooth' });
+          setActiveReview(idx);
+        }
+      });
+    });
+  }
+
   // ===== EVENT LISTENERS =====
   function onScroll() {
     computeHeroTarget();
     computeGalleryTarget();
+    computeReviewsTarget();
   }
 
   function onResize() {
@@ -359,6 +434,7 @@
     }
     computeHeroTarget();
     computeGalleryTarget();
+    computeReviewsTarget();
   }
 
   // ===== MOBILE NAV TOGGLE =====
@@ -409,4 +485,5 @@
   preloadFrames();
   setupReveals();
   setupCursorBuffer();
+  setupReviewsNav();
 })();
