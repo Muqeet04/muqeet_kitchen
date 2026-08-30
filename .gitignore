@@ -5,3 +5,5 @@ node_modules
 new_assets/
 oak wood kitchen/
 *.mp4
+!assets/section2_anim.mp4
+!assets/kitchen_anim.mp4
