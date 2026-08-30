@@ -2,6 +2,7 @@
   'use strict';
 
   // ===== CONSTANTS =====
+  // TODO: replace scroll animation with final revised version asset when available
   var TOTAL_FRAMES = 296;
   var HERO_LERP = 0.12;      // hero interpolation
   var GALLERY_LERP = 0.06;   // gallery interpolation (slow, cinematic)
@@ -313,6 +314,12 @@
       entries.forEach(function(en) {
         if (!en.isIntersecting) return;
         en.target.classList.add('in');
+        var vids = en.target.querySelectorAll('video');
+        vids.forEach(function(v) {
+          if (v.paused) {
+            v.play().catch(function() {});
+          }
+        });
         var counters = en.target.querySelectorAll('[data-count]');
         for (var i = 0; i < counters.length; i++) {
           if (!counters[i].dataset.done) {

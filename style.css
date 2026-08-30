@@ -10,10 +10,10 @@
   --accent-deep: #b04324;
   --accent-dark: #7a3422;
   --brass: #ea9b76;
-  --paper: #f9ddcb;
+  --paper: #F5ECD7;
   --pure-white: #ffffff;
-  --light-beige: #FDF8F4;
-  --light-beige-dark: #F2E7DC;
+  --light-beige: #F5ECD7;
+  --light-beige-dark: #EFE4CF;
   --headerH: 78px;
   --serif: 'Cormorant Garamond', Georgia, serif;
   --sans: 'Montserrat', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -95,9 +95,9 @@ h1, h2, h3 {
 
 .load-mark {
   font-family: var(--serif);
-  font-size: clamp(34px, 6vw, 56px);
+  font-size: clamp(36px, 6.5vw, 60px);
   text-align: center;
-  color: var(--pure-white);
+  color: #ffffff;
   font-weight: 600;
 }
 
@@ -133,7 +133,7 @@ h1, h2, h3 {
   font-size: 11px;
   letter-spacing: .24em;
   text-transform: uppercase;
-  color: rgba(249, 221, 203, .65);
+  color: rgba(245, 236, 215, .75);
 }
 
 #loader.gone {
@@ -177,9 +177,9 @@ header.solid {
 
 .brand b {
   font-family: var(--serif);
-  font-size: 24px;
+  font-size: 27px;
   letter-spacing: .02em;
-  color: var(--pure-white);
+  color: #ffffff;
   font-weight: 700;
 }
 
@@ -201,11 +201,11 @@ nav {
 .lnk {
   font-family: var(--sans);
   font-weight: 600;
-  font-size: 13px;
+  font-size: 14.5px;
   letter-spacing: .16em;
   text-transform: uppercase;
-  color: var(--pure-white);
-  opacity: .9;
+  color: #ffffff;
+  opacity: 1;
   transition: opacity 0.3s ease, color 0.3s ease;
 }
 
@@ -222,7 +222,7 @@ nav {
   text-transform: uppercase;
   padding: 11px 22px;
   background: var(--accent-deep);
-  color: var(--pure-white);
+  color: #ffffff;
   border-radius: 2px;
   transition: background 0.3s ease, transform 0.2s ease;
 }
@@ -385,12 +385,12 @@ nav {
 }
 
 .hero-tag {
-  color: #c9402f !important;
+  color: #8B1A1A !important;
   font-weight: 700;
   font-size: 13px;
   letter-spacing: .3em;
   margin-bottom: 22px;
-  text-shadow: 0 2px 14px rgba(0, 0, 0, .6);
+  text-shadow: 0 2px 16px rgba(0, 0, 0, .95);
 }
 
 .hero-title {
@@ -398,7 +398,7 @@ nav {
   font-size: clamp(44px, 9vw, 120px);
   line-height: .94;
   letter-spacing: .01em;
-  color: var(--pure-white);
+  color: #ffffff;
   font-weight: 700;
   text-shadow: 0 6px 45px rgba(0, 0, 0, .85);
 }
@@ -407,7 +407,7 @@ nav {
   margin-top: 26px;
   font-size: clamp(16px, 1.7vw, 21px);
   max-width: 38ch;
-  color: var(--pure-white);
+  color: #ffffff;
   line-height: 1.55;
   text-shadow: 0 2px 20px rgba(0, 0, 0, .85);
   text-align: center;
@@ -578,7 +578,7 @@ nav {
 
 /* 8. SECTION 2: The Native Coast Way (About / Stats / Video) */
 .about {
-  padding: 120px 0 110px;
+  padding: 80px 0 100px;
 }
 
 .lead-card {
@@ -587,9 +587,9 @@ nav {
 }
 
 .about-eyebrow {
-  color: var(--paper) !important;
-  font-size: 13px;
-  letter-spacing: .32em;
+  color: #F5ECD7 !important;
+  font-size: 14px;
+  letter-spacing: .36em;
   margin-bottom: 14px;
   display: inline-block;
   font-weight: 700;
@@ -597,13 +597,13 @@ nav {
 
 .about-lead {
   font-family: var(--serif);
-  font-size: clamp(26px, 3.2vw, 42px);
+  font-size: clamp(28px, 3.5vw, 45px);
   line-height: 1.24;
-  color: var(--pure-white);
+  color: #ffffff;
 }
 
 .lead-card .hl {
-  color: var(--paper);
+  color: #F5ECD7;
   font-style: italic;
 }
 
@@ -653,9 +653,9 @@ nav {
 .stat-card .stat-num,
 .stat-card b {
   font-family: var(--serif);
-  font-size: clamp(42px, 4.6vw, 60px);
+  font-size: clamp(48px, 5.4vw, 70px);
   font-weight: 700;
-  color: var(--pure-white);
+  color: #ffffff;
   line-height: 1;
   display: inline-flex;
   align-items: baseline;
@@ -667,24 +667,25 @@ nav {
   font-family: var(--serif);
   font-size: inherit;
   font-weight: inherit;
-  color: var(--pure-white);
+  color: #ffffff;
   letter-spacing: inherit;
   text-transform: none;
   margin-top: 0;
 }
 
 .stat-card .stat-suffix {
-  color: var(--brass);
+  color: #ffffff;
 }
 
 .stat-card .stat-label,
 .stat-card > span {
   font-family: var(--sans);
   font-weight: 600;
-  font-size: 11px;
+  font-size: 11.5px;
   letter-spacing: .2em;
   text-transform: uppercase;
-  color: var(--ink-2);
+  color: #ffffff;
+  opacity: 0.95;
   display: block;
 }
 
@@ -939,7 +940,7 @@ nav {
 .hgallery {
   position: relative;
   height: 400vh;
-  background: linear-gradient(135deg, #1A0A0E 0%, #2A090F 35%, #18070B 70%, #120407 100%);
+  background: linear-gradient(160deg, #1A0A0E 0%, #2D1010 50%, #1A0A0E 100%);
 }
 
 .hgallery-sticky {
@@ -1011,14 +1012,14 @@ nav {
 }
 
 .hgallery-card figcaption {
-  padding: 18px 22px;
+  padding: 16px 20px;
   font-family: var(--sans);
-  font-weight: 600;
+  font-weight: 500;
   font-size: 12px;
-  letter-spacing: .16em;
-  text-transform: uppercase;
+  line-height: 1.45;
+  letter-spacing: .03em;
   color: var(--pure-white);
-  background: rgba(26, 10, 14, .85);
+  background: rgba(26, 10, 14, .92);
 }
 
 .hgallery-progress {
