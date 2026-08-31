@@ -1350,3 +1350,22 @@ footer {
   margin-top: 4px;
   color: var(--accent);
 }
+
+/* 14. BELGRADE ARBOR HARMONIC SILK CANVAS CURSOR STYLES */
+.belgrade-cursor-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 999;
+  mix-blend-mode: screen;
+}
+
+/* On mobile/touch devices, hide the canvas overlay to save GPU cycles */
+@media (max-width: 991px), (hover: none) and (pointer: coarse) {
+  .belgrade-cursor-canvas {
+    display: none !important;
+  }
+}
+

@@ -477,6 +477,287 @@
     });
   });
 
+  // ===== BELGRADE ARBOR HARMONIC SILK CANVAS CURSOR ENGINE =====
+  function WaveOscillator(options) {
+    options = options || {};
+    this.phase = options.phase || 0;
+    this.offset = options.offset || 0;
+    this.frequency = options.frequency || 0.0015;
+    this.amplitude = options.amplitude || 85;
+    this.currentValue = 0;
+  }
+
+  WaveOscillator.prototype.update = function() {
+    this.phase += this.frequency;
+    this.currentValue = this.offset + Math.sin(this.phase) * this.amplitude;
+    return this.currentValue;
+  };
+
+  function PhysicsNode() {
+    this.x = 0;
+    this.y = 0;
+    this.vx = 0;
+    this.vy = 0;
+  }
+
+  function SilkTrail(options, config, mousePos) {
+    this.config = config;
+    this.mousePos = mousePos;
+    this.spring = options.spring + (0.1 * Math.random() - 0.02);
+    this.friction = this.config.friction + (0.01 * Math.random() - 0.002);
+    this.nodes = [];
+
+    for (var i = 0; i < this.config.size; i++) {
+      var node = new PhysicsNode();
+      node.x = this.mousePos.x;
+      node.y = this.mousePos.y;
+      this.nodes.push(node);
+    }
+  }
+
+  SilkTrail.prototype.update = function() {
+    var springFactor = this.spring;
+    var leadNode = this.nodes[0];
+
+    leadNode.vx += (this.mousePos.x - leadNode.x) * springFactor;
+    leadNode.vy += (this.mousePos.y - leadNode.y) * springFactor;
+
+    for (var i = 0, len = this.nodes.length; i < len; i++) {
+      var node = this.nodes[i];
+      if (i > 0) {
+        var prevNode = this.nodes[i - 1];
+        node.vx += (prevNode.x - node.x) * springFactor;
+        node.vy += (prevNode.y - node.y) * springFactor;
+        node.vx += prevNode.vx * this.config.dampening;
+        node.vy += prevNode.vy * this.config.dampening;
+      }
+
+      node.vx *= this.friction;
+      node.vy *= this.friction;
+      node.x += node.vx;
+      node.y += node.vy;
+      springFactor *= this.config.tension;
+    }
+  };
+
+  SilkTrail.prototype.draw = function(ctx) {
+    if (this.nodes.length < 2) return;
+
+    var currX = this.nodes[0].x;
+    var currY = this.nodes[0].y;
+
+    ctx.beginPath();
+    ctx.moveTo(currX, currY);
+
+    var i = 1;
+    var end = this.nodes.length - 2;
+    for (; i < end; i++) {
+      var nodeA = this.nodes[i];
+      var nodeB = this.nodes[i + 1];
+      currX = 0.5 * (nodeA.x + nodeB.x);
+      currY = 0.5 * (nodeA.y + nodeB.y);
+      ctx.quadraticCurveTo(nodeA.x, nodeA.y, currX, currY);
+    }
+
+    var nodeLastA = this.nodes[i];
+    var nodeLastB = this.nodes[i + 1];
+    ctx.quadraticCurveTo(nodeLastA.x, nodeLastA.y, nodeLastB.x, nodeLastB.y);
+    ctx.stroke();
+    ctx.closePath();
+  };
+
+  function CustomCursor() {
+    this.canvas = null;
+    this.ctx = null;
+    this.running = false;
+    this.rafId = null;
+
+    this.mousePos = {
+      x: typeof window !== 'undefined' ? window.innerWidth / 2 : 0,
+      y: typeof window !== 'undefined' ? window.innerHeight / 2 : 0
+    };
+
+    this.config = {
+      friction: 0.5,
+      trails: 10,
+      size: 10,
+      dampening: 0.1,
+      tension: 0.98
+    };
+
+    this.trails = [];
+    this.oscillator = null;
+
+    this.strokeHue = 'hsla(34.2, 42%, 58%, 0.28)';
+    this.accentStrokeHue = 'hsla(20, 68%, 65%, 0.38)';
+    this.currentStroke = this.strokeHue;
+
+    this.handleMouseMove = this.handleMouseMove.bind(this);
+    this.handleTouchMove = this.handleTouchMove.bind(this);
+    this.handleTouchStart = this.handleTouchStart.bind(this);
+    this.handleResize = this.handleResize.bind(this);
+    this.render = this.render.bind(this);
+
+    this.init();
+  }
+
+  CustomCursor.prototype.init = function() {
+    if (typeof window === 'undefined') return;
+
+    this.createCanvas();
+    this.setupOscillator();
+    this.createTrails();
+    this.bindEvents();
+    this.start();
+  };
+
+  CustomCursor.prototype.createCanvas = function() {
+    var existingCanvas = document.getElementById('belgrade-cursor-canvas');
+    if (existingCanvas) existingCanvas.remove();
+
+    this.canvas = document.createElement('canvas');
+    this.canvas.id = 'belgrade-cursor-canvas';
+    this.canvas.className = 'belgrade-cursor-canvas';
+    this.canvas.setAttribute('aria-hidden', 'true');
+
+    document.body.appendChild(this.canvas);
+    this.ctx = this.canvas.getContext('2d');
+
+    this.handleResize();
+  };
+
+  CustomCursor.prototype.setupOscillator = function() {
+    this.oscillator = new WaveOscillator({
+      phase: 2 * Math.random() * Math.PI,
+      amplitude: 85,
+      frequency: 0.0015,
+      offset: 285
+    });
+  };
+
+  CustomCursor.prototype.createTrails = function() {
+    this.trails = [];
+    for (var i = 0; i < this.config.trails; i++) {
+      this.trails.push(
+        new SilkTrail(
+          { spring: 0.4 + (i / this.config.trails) * 0.025 },
+          this.config,
+          this.mousePos
+        )
+      );
+    }
+  };
+
+  CustomCursor.prototype.bindEvents = function() {
+    var self = this;
+    window.addEventListener('mousemove', this.handleMouseMove, { passive: true });
+    window.addEventListener('touchmove', this.handleTouchMove, { passive: true });
+    window.addEventListener('touchstart', this.handleTouchStart, { passive: true });
+    window.addEventListener('resize', this.handleResize, { passive: true });
+    window.addEventListener('orientationchange', this.handleResize, { passive: true });
+
+    window.addEventListener('focus', function() {
+      if (!self.running) {
+        self.running = true;
+        self.render();
+      }
+    });
+
+    window.addEventListener('blur', function() {
+      self.running = false;
+    });
+
+    document.addEventListener('mouseover', function(e) {
+      if (e.target.closest('a, button, .cta, .lnk, .nav-cta, .hgallery-card, .stat-card, [role="button"]')) {
+        self.currentStroke = self.accentStrokeHue;
+      }
+    });
+
+    document.addEventListener('mouseout', function(e) {
+      if (e.target.closest('a, button, .cta, .lnk, .nav-cta, .hgallery-card, .stat-card, [role="button"]')) {
+        self.currentStroke = self.strokeHue;
+      }
+    });
+  };
+
+  CustomCursor.prototype.handleMouseMove = function(e) {
+    this.mousePos.x = e.clientX;
+    this.mousePos.y = e.clientY;
+  };
+
+  CustomCursor.prototype.handleTouchMove = function(e) {
+    if (e.touches && e.touches.length > 0) {
+      this.mousePos.x = e.touches[0].clientX;
+      this.mousePos.y = e.touches[0].clientY;
+    }
+  };
+
+  CustomCursor.prototype.handleTouchStart = function(e) {
+    if (e.touches && e.touches.length === 1) {
+      this.mousePos.x = e.touches[0].clientX;
+      this.mousePos.y = e.touches[0].clientY;
+    }
+  };
+
+  CustomCursor.prototype.handleResize = function() {
+    if (!this.canvas) return;
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    this.canvas.width = window.innerWidth * dpr;
+    this.canvas.height = window.innerHeight * dpr;
+    this.canvas.style.width = window.innerWidth + 'px';
+    this.canvas.style.height = window.innerHeight + 'px';
+
+    if (this.ctx) {
+      this.ctx.setTransform(1, 0, 0, 1, 0, 0);
+      this.ctx.scale(dpr, dpr);
+    }
+  };
+
+  CustomCursor.prototype.start = function() {
+    if (this.running) return;
+    this.running = true;
+    this.render();
+  };
+
+  CustomCursor.prototype.stop = function() {
+    this.running = false;
+    if (this.rafId) {
+      cancelAnimationFrame(this.rafId);
+      this.rafId = null;
+    }
+    if (this.ctx && this.canvas) {
+      this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    }
+  };
+
+  CustomCursor.prototype.render = function() {
+    if (!this.running || !this.ctx || !this.canvas) return;
+
+    if (this.oscillator) {
+      this.oscillator.update();
+    }
+
+    var width = window.innerWidth;
+    var height = window.innerHeight;
+
+    this.ctx.globalCompositeOperation = 'source-over';
+    this.ctx.clearRect(0, 0, width, height);
+
+    this.ctx.globalCompositeOperation = 'lighter';
+    this.ctx.strokeStyle = this.currentStroke;
+    this.ctx.lineWidth = 1;
+
+    for (var i = 0; i < this.config.trails; i++) {
+      var trail = this.trails[i];
+      if (trail) {
+        trail.update();
+        trail.draw(this.ctx);
+      }
+    }
+
+    this.rafId = requestAnimationFrame(this.render);
+  };
+
   // ===== INIT =====
   window.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('resize', onResize, { passive: true });
@@ -493,4 +774,6 @@
   setupReveals();
   setupCursorBuffer();
   setupReviewsNav();
+  new CustomCursor();
 })();
+
