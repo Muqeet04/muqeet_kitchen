@@ -306,6 +306,16 @@ _Date: 2026-09-01_
 
 ---
 
+## Revision 12 — Consistent Fixed Height Across All 5 Review Slides
+**Date:** 2026-09-02  
+**Files modified:** `style.css`, `script.js`  
+**Description:**
+- **Consistent Fixed Height:** Fixed reviews section to use a consistent fixed height across all 5 slides instead of auto-sizing per quote length. Set `.reviews-display-card` to a fixed `height: 236px` (mobile `210px`) and `.reviews-stack` to `height: 120px` (mobile `110px`) with `display: flex; flex-direction: column; justify-content: center; align-items: center;`.
+- **Identical Layout & Positioning:** Removed the scroll-linked dynamic `translateY` vertical shift in `computeReviewsTarget()` so that slides 01/05 through 05/05 remain anchored in the exact same compact position and height.
+- **Readability & Text Fit:** All 5 quotes (117–125 characters) vertically center with zero overflow or text clipping.
+
+---
+
 ## Summary
 | # | Revision | Status |
 |---|----------|--------|
@@ -320,3 +330,4 @@ _Date: 2026-09-01_
 | 9 | Reviews scroll-driven animation | ✅ Done |
 | 10 | Padding removal & progressive movement | ✅ Done |
 | 11 | Reviews section height −30% (root cause fixed) & default cursor restored | ✅ Done |
+| 12 | Consistent fixed height across all 5 review slides | ✅ Done |

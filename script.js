@@ -431,8 +431,6 @@
     // Before pinning, keep Review 01 clearly displayed in full view
     if (current <= 0) {
       if (currentActiveReview !== 0) setActiveReview(0);
-      var contentEl = document.querySelector('.reviews-content');
-      if (contentEl) contentEl.style.transform = 'translateY(0px)';
       return;
     }
 
@@ -442,13 +440,6 @@
 
     if (targetIdx !== currentActiveReview) {
       setActiveReview(targetIdx);
-    }
-
-    // With each review, slowly and smoothly move towards the last section
-    var contentEl = document.querySelector('.reviews-content');
-    if (contentEl) {
-      var moveDown = progress * -30;
-      contentEl.style.transform = 'translateY(' + moveDown + 'px)';
     }
   }
 
