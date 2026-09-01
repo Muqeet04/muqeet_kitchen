@@ -297,7 +297,11 @@ _Date: 2026-09-01_
 **Date:** 2026-09-02  
 **Files modified:** `style.css`, `script.js`  
 **Description:**
-- **Reviews Section Height (−30%):** Reduced the overall height of the "Verified reviews" / Client Stories section (`.reviews-scroll`) by 30% from `180vh` to `126vh` (and mobile viewport from `160vh` to `112vh`). All content inside the testimonial card (stars, quote typography, reviewer name, project location, and navigation dots) remains proportionally centered and fully readable without any text clipping or overflow. Font sizes, palette colors, and scroll carousel logic remain untouched.
+- **Reviews Section Height (−30%) [Root Cause & Correction]:** 
+  - *Root Cause:* The rendered height of Section 6 was governed by the sticky frame `.reviews-sticky`, which had a full-screen viewport height set to `calc(100vh - var(--headerH, 78px))` / `calc(100dvh - var(--headerH, 78px))` with flex vertical centering (`display: flex; flex-direction: column; justify-content: center;`). Consequently, the section continued to visibly occupy the entire screen height.
+  - *Correction:* Reduced the actual rendered element `.reviews-sticky` height by 30% to `calc((100vh - var(--headerH, 78px)) * 0.7)` and `calc((100dvh - var(--headerH, 78px)) * 0.7)` (and mobile viewport to `calc((100vh - var(--headerH, 70px)) * 0.7)` / `calc((100dvh - var(--headerH, 70px)) * 0.7)`).
+  - *Script Synchronization:* Updated `computeReviewsTarget()` and `setupReviewsNav()` in `script.js` to dynamically measure `reviewsSticky.offsetHeight` to ensure smooth scroll interpolation and navigation dot accuracy.
+  - *Content Preservation:* All testimonial carousel content (5 stars, quote typography, author and project name, navigation dots) remains proportionally centered and fully readable without any overflow or text clipping.
 - **Default OS Cursor Restoration:** Reverted the cursor back to the default OS cursor by removing `cursor: none;` on `body` and interactive elements (`a`, `button`, `input`, etc.), and removing the custom thin line DOM element (`setupLineCursor()` / `.custom-cursor`). The silk trailing physics animation (`CustomCursor`) and Section 3 photo buffer trail (`setupCursorBuffer()`) remain 100% active and functional.
 
 ---
@@ -315,4 +319,4 @@ _Date: 2026-09-01_
 | 8 | Reviews cohesive palette & atmospheres | ✅ Done |
 | 9 | Reviews scroll-driven animation | ✅ Done |
 | 10 | Padding removal & progressive movement | ✅ Done |
-| 11 | Reviews section height −30% & default cursor restored | ✅ Done |
+| 11 | Reviews section height −30% (root cause fixed) & default cursor restored | ✅ Done |

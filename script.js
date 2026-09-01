@@ -420,7 +420,9 @@
     if (!reviewsSection || !reviewSlides.length) return;
     var rect = reviewsSection.getBoundingClientRect();
     var stickyTop = header ? header.offsetHeight : 78;
-    var total = reviewsSection.offsetHeight - (window.innerHeight - stickyTop);
+    var stickyEl = document.getElementById('reviewsSticky');
+    var stickyH = stickyEl ? stickyEl.offsetHeight : (window.innerHeight - stickyTop);
+    var total = reviewsSection.offsetHeight - stickyH;
     if (total <= 0) return;
 
     // Current scroll distance past the sticky pin point
@@ -445,7 +447,7 @@
     // With each review, slowly and smoothly move towards the last section
     var contentEl = document.querySelector('.reviews-content');
     if (contentEl) {
-      var moveDown = progress * -40;
+      var moveDown = progress * -30;
       contentEl.style.transform = 'translateY(' + moveDown + 'px)';
     }
   }
@@ -491,7 +493,9 @@
         var idx = parseInt(dot.dataset.idx, 10);
         if (!isNaN(idx) && reviewsSection) {
           var stickyTop = header ? header.offsetHeight : 78;
-          var total = reviewsSection.offsetHeight - (window.innerHeight - stickyTop);
+          var stickyEl = document.getElementById('reviewsSticky');
+          var stickyH = stickyEl ? stickyEl.offsetHeight : (window.innerHeight - stickyTop);
+          var total = reviewsSection.offsetHeight - stickyH;
           var targetScroll = window.scrollY + reviewsSection.getBoundingClientRect().top - stickyTop + (total * (idx + 0.1) / reviewSlides.length);
           window.scrollTo({ top: targetScroll, behavior: 'smooth' });
           setActiveReview(idx);
