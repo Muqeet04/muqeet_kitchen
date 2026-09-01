@@ -419,10 +419,19 @@
   function computeReviewsTarget() {
     if (!reviewsSection || !reviewSlides.length) return;
     var rect = reviewsSection.getBoundingClientRect();
-    var total = reviewsSection.offsetHeight - window.innerHeight;
-    if (total <= 0) return;
+    var vh = window.innerHeight;
 
-    var progress = clamp(-rect.top / total, 0, 0.999);
+    // Trigger scroll-driven review progression when reviews section enters and passes through viewport
+    var startOffset = vh * 0.75;
+    var scrollDistance = rect.height + vh * 0.35;
+    var current = startOffset - rect.top;
+
+    if (current < 0) {
+      if (currentActiveReview !== 0) setActiveReview(0);
+      return;
+    }
+
+    var progress = clamp(current / scrollDistance, 0, 0.999);
     var numReviews = reviewSlides.length;
     var targetIdx = Math.min(numReviews - 1, Math.floor(progress * numReviews));
 
@@ -466,44 +475,15 @@
   }
 
   function setupReviewsNav() {
-    var autoTimer = null;
-
-    function nextReview() {
-      var next = (currentActiveReview + 1) % reviewSlides.length;
-      setActiveReview(next);
-    }
-
     reviewDots.forEach(function(dot) {
       dot.addEventListener('click', function(e) {
         e.preventDefault();
         var idx = parseInt(dot.dataset.idx, 10);
         if (!isNaN(idx)) {
           setActiveReview(idx);
-          if (autoTimer) {
-            clearInterval(autoTimer);
-            autoTimer = setInterval(nextReview, 5000);
-          }
         }
       });
     });
-
-    if ('IntersectionObserver' in window && reviewsSection) {
-      var observer = new IntersectionObserver(function(entries) {
-        entries.forEach(function(entry) {
-          if (entry.isIntersecting) {
-            if (!autoTimer) {
-              autoTimer = setInterval(nextReview, 5000);
-            }
-          } else {
-            if (autoTimer) {
-              clearInterval(autoTimer);
-              autoTimer = null;
-            }
-          }
-        });
-      }, { threshold: 0.2 });
-      observer.observe(reviewsSection);
-    }
   }
 
   // ===== EVENT LISTENERS =====
