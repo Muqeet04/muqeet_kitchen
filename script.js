@@ -416,14 +416,14 @@
     }
   ];
 
+  var reviewScrollThresholds = [0, 0.20, 0.40, 0.60, 0.80];
   function computeReviewsTarget() {
     if (!reviewsSection || !reviewSlides.length) return;
     var rect = reviewsSection.getBoundingClientRect();
     var vh = window.innerHeight;
 
-    // Trigger scroll-driven review progression when reviews section enters and passes through viewport
-    var startOffset = vh * 0.75;
-    var scrollDistance = rect.height + vh * 0.35;
+    var startOffset = vh * 0.80;
+    var scrollDistance = rect.height + vh * 0.45;
     var current = startOffset - rect.top;
 
     if (current < 0) {
@@ -432,8 +432,13 @@
     }
 
     var progress = clamp(current / scrollDistance, 0, 0.999);
-    var numReviews = reviewSlides.length;
-    var targetIdx = Math.min(numReviews - 1, Math.floor(progress * numReviews));
+    var targetIdx = 0;
+    for (var i = reviewScrollThresholds.length - 1; i >= 0; i--) {
+      if (progress >= reviewScrollThresholds[i]) {
+        targetIdx = i;
+        break;
+      }
+    }
 
     if (targetIdx !== currentActiveReview) {
       setActiveReview(targetIdx);
