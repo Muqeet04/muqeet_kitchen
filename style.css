@@ -946,7 +946,10 @@ nav {
 .hgallery {
   position: relative;
   height: 400vh;
-  background: linear-gradient(160deg, #3D1A1A 0%, #5C2020 40%, #3D1A1A 100%);
+  background: 
+    radial-gradient(ellipse 80% 60% at 75% 30%, rgba(142, 45, 34, 0.42) 0%, transparent 70%),
+    radial-gradient(ellipse 65% 55% at 20% 75%, rgba(100, 32, 42, 0.38) 0%, transparent 65%),
+    linear-gradient(145deg, #1C0A0E 0%, #3D141D 24%, #61241E 52%, #38121B 78%, #140508 100%);
 }
 
 .hgallery-sticky {

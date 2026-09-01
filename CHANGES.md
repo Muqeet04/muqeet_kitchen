@@ -185,11 +185,21 @@ _Date: 2026-09-01_
 
 ---
 
-## Revision 4 — Section 5 Lighter Gradient
+## Revision 4 — Section 5 Multi-Tone Radiant Gradient
 **Files modified:** `style.css`
 **Selector:** `.hgallery`
-**Before:** `linear-gradient(160deg, #1A0A0E 0%, #2D1010 50%, #1A0A0E 100%)`
-**After:** `linear-gradient(160deg, #3D1A1A 0%, #5C2020 40%, #3D1A1A 100%)`
+**Before (Single-tone):** `linear-gradient(160deg, #3D1A1A 0%, #5C2020 40%, #3D1A1A 100%)`
+**After (Multi-tone):**
+```css
+.hgallery {
+  position: relative;
+  height: 400vh;
+  background: 
+    radial-gradient(ellipse 80% 60% at 75% 30%, rgba(142, 45, 34, 0.42) 0%, transparent 70%),
+    radial-gradient(ellipse 65% 55% at 20% 75%, rgba(100, 32, 42, 0.38) 0%, transparent 65%),
+    linear-gradient(145deg, #1C0A0E 0%, #3D141D 24%, #61241E 52%, #38121B 78%, #140508 100%);
+}
+```
 
 ---
 
