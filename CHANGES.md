@@ -81,9 +81,9 @@ _Date: 2026-09-01_
 
 ---
 
-## Revision 3 — Section 6 Height −30%
+## Revision 3 — Section 6 Height Reduction & Space Elimination
 **Files modified:** `style.css`
-**Selector:** `.reviews-scroll`, `.reviews-sticky`, `.reviews-display-card`, `.review-slide .review-quote`
+**Selector:** `.reviews-scroll`, `.reviews-sticky`, `.reviews-display-card`, `.review-slide .review-quote`, `.contact`
 **Before:**
 ```css
 .reviews-scroll {
@@ -122,44 +122,62 @@ _Date: 2026-09-01_
   margin-bottom: 24px;
   ...
 }
+
+.contact {
+  padding: 120px 0 60px;
+  ...
+}
 ```
 
 **After:**
 ```css
 .reviews-scroll {
   position: relative;
-  height: 270vh; /* Reduced ~30% from 380vh */
+  height: 180vh; /* Reduced scroll track to eliminate empty bottom void */
   background: var(--ink);
 }
 
 .reviews-sticky {
   position: sticky;
-  top: 15vh; /* Centered in viewport */
-  height: 70vh; /* Reduced from 100vh full-screen to 70vh */
-  height: 70dvh;
+  top: var(--headerH, 78px); /* Sits snugly below header, eliminating top empty space */
+  height: calc(100vh - var(--headerH, 78px));
+  height: calc(100dvh - var(--headerH, 78px));
   overflow: hidden;
   display: flex;
-  align-items: center;
+  flex-direction: column;
   justify-content: center;
+  padding: 10px 0;
+}
+
+.reviews-top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 20px;
 }
 
 .reviews-display-card {
   position: relative;
-  padding: 40px 42px; /* Reduced padding */
+  padding: 38px 42px; /* Balanced padding */
   max-width: 980px;
   margin: 0 auto;
   text-align: center;
   border-radius: 24px;
-  min-height: 270px; /* Reduced ~30% from 380px */
+  min-height: 250px; /* Compact height */
   ...
 }
 
 .review-slide .review-quote {
   font-family: var(--serif);
-  font-size: clamp(22px, 3.1vw, 38px); /* Reduced ~10% to prevent overflow */
+  font-size: clamp(22px, 3.1vw, 38px); /* Sized to prevent text clipping */
   line-height: 1.32;
   color: var(--pure-white);
   margin-bottom: 18px;
+  ...
+}
+
+.contact {
+  padding: 80px 0 60px; /* Connects smoothly to fill bottom space */
   ...
 }
 ```
