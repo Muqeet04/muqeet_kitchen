@@ -1065,10 +1065,9 @@ nav {
 
 .reviews-sticky {
   position: sticky;
-  top: 0;
-  height: 100vh;
-  height: 100dvh;
-  min-height: 70vh;
+  top: 15vh;
+  height: 70vh;
+  height: 70dvh;
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -1245,6 +1244,7 @@ nav {
 
 @media (max-width: 820px) {
   .reviews-scroll { height: 225vh; }
+  .reviews-sticky { top: 10vh; height: 75vh; height: 75dvh; }
   .reviews-display-card { padding: 26px 18px; min-height: 230px; }
   .review-slide .review-quote { font-size: clamp(17px, 5vw, 24px); }
   .reviews-top-bar { flex-direction: column; align-items: flex-start; gap: 12px; }

@@ -134,10 +134,9 @@ _Date: 2026-09-01_
 
 .reviews-sticky {
   position: sticky;
-  top: 0;
-  height: 100vh;
-  height: 100dvh;
-  min-height: 70vh;
+  top: 15vh; /* Centered in viewport */
+  height: 70vh; /* Reduced from 100vh full-screen to 70vh */
+  height: 70dvh;
   overflow: hidden;
   display: flex;
   align-items: center;
