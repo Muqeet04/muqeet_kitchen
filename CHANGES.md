@@ -287,6 +287,12 @@ _Date: 2026-09-01_
 
 ---
 
+## Revision 10 — Padding Removal & Progressive Motion to Final Section
+**Files modified:** `style.css`, `script.js`  
+**Description:** Removed excess padding on `.reviews-sticky` (`padding: 0;`), compacted card padding to `32px 38px`, and added progressive vertical motion (`translateY`) in `computeReviewsTarget()`. With each review scrolled (01 → 02 → 03 → 04 → 05), the screen smoothly and continuously moves downward towards the final Contact & Quote section.
+
+---
+
 ## Summary
 | # | Revision | Status |
 |---|----------|--------|
@@ -299,3 +305,4 @@ _Date: 2026-09-01_
 | 7 | Hero tagline → white | ✅ Done |
 | 8 | Reviews cohesive palette & atmospheres | ✅ Done |
 | 9 | Reviews scroll-driven animation | ✅ Done |
+| 10 | Padding removal & progressive movement | ✅ Done |
