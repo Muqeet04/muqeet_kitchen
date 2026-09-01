@@ -383,12 +383,37 @@
   var reviewDots = Array.prototype.slice.call(document.querySelectorAll('#reviewsDots .dot-btn'));
   var currentActiveReview = 0;
 
-  var REVIEW_GRADIENTS = [
-    'radial-gradient(circle at 70% 30%, rgba(176, 67, 36, 0.24) 0%, transparent 60%), linear-gradient(150deg, #1A0A0E 0%, #290F15 45%, #18080C 100%)', // Review 1: Heritage Licorice & Terracotta
-    'radial-gradient(circle at 30% 65%, rgba(190, 80, 45, 0.26) 0%, transparent 65%), linear-gradient(150deg, #1C0B10 0%, #341219 50%, #1A0A0E 100%)', // Review 2: Roasted Auburn & Oak Wine
-    'radial-gradient(circle at 75% 70%, rgba(150, 50, 65, 0.24) 0%, transparent 60%), linear-gradient(150deg, #16080D 0%, #280E18 50%, #13060A 100%)', // Review 3: Smoked Mulberry & Charcoal
-    'radial-gradient(circle at 25% 30%, rgba(234, 155, 118, 0.25) 0%, transparent 65%), linear-gradient(150deg, #1E0C10 0%, #361516 48%, #19090D 100%)', // Review 4: Glowing Amber Brass & Mahogany
-    'radial-gradient(circle at 60% 40%, rgba(160, 55, 40, 0.22) 0%, transparent 65%), linear-gradient(150deg, #140508 0%, #260D12 50%, #120406 100%)'  // Review 5: Midnight Espresso & Burnished Copper
+  var REVIEW_ATMOSPHERES = [
+    // Review 1: Heritage Shaker — Warm Brass & Terracotta glow
+    {
+      glow: 'radial-gradient(circle at 50% 50%, rgba(234, 155, 118, 0.16) 0%, rgba(176, 67, 36, 0.05) 50%, transparent 70%)',
+      cardBg: 'rgba(38, 15, 20, 0.60)',
+      border: 'rgba(234, 155, 118, 0.18)'
+    },
+    // Review 2: Chelsea Fluted Oak — Warm Roasted Auburn glow
+    {
+      glow: 'radial-gradient(circle at 50% 50%, rgba(210, 105, 70, 0.16) 0%, rgba(150, 50, 35, 0.05) 50%, transparent 70%)',
+      cardBg: 'rgba(42, 17, 23, 0.60)',
+      border: 'rgba(210, 105, 70, 0.18)'
+    },
+    // Review 3: Full Renovation — Smoked Mulberry & Charcoal glow
+    {
+      glow: 'radial-gradient(circle at 50% 50%, rgba(185, 75, 90, 0.15) 0%, rgba(125, 40, 50, 0.05) 50%, transparent 70%)',
+      cardBg: 'rgba(36, 14, 22, 0.60)',
+      border: 'rgba(185, 75, 90, 0.18)'
+    },
+    // Review 4: Wimbledon Townhouse — Honey Amber Brass glow
+    {
+      glow: 'radial-gradient(circle at 50% 50%, rgba(245, 170, 120, 0.17) 0%, rgba(185, 85, 50, 0.05) 50%, transparent 70%)',
+      cardBg: 'rgba(40, 18, 20, 0.60)',
+      border: 'rgba(245, 170, 120, 0.20)'
+    },
+    // Review 5: Kensington Pavilion — Midnight Burnished Copper glow
+    {
+      glow: 'radial-gradient(circle at 50% 50%, rgba(200, 90, 60, 0.15) 0%, rgba(135, 45, 32, 0.05) 50%, transparent 70%)',
+      cardBg: 'rgba(34, 12, 16, 0.60)',
+      border: 'rgba(200, 90, 60, 0.18)'
+    }
   ];
 
   function computeReviewsTarget() {
@@ -429,8 +454,14 @@
       reviewCurr.textContent = String(idx + 1).padStart(2, '0');
     }
 
-    if (reviewsBg && REVIEW_GRADIENTS[idx]) {
-      reviewsBg.style.background = REVIEW_GRADIENTS[idx];
+    var glowEl = document.querySelector('.reviews-glow');
+    var cardEl = document.querySelector('.reviews-display-card');
+    if (REVIEW_ATMOSPHERES[idx]) {
+      if (glowEl) glowEl.style.background = REVIEW_ATMOSPHERES[idx].glow;
+      if (cardEl) {
+        cardEl.style.background = REVIEW_ATMOSPHERES[idx].cardBg;
+        cardEl.style.borderColor = REVIEW_ATMOSPHERES[idx].border;
+      }
     }
   }
 
