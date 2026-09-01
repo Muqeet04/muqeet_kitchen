@@ -317,6 +317,17 @@ _Date: 2026-09-01_
 
 ---
 
+## Revision 13 — Reviews Section Whitespace Elimination & Gap Closure to 'Get in Touch'
+**Date:** 2026-09-02  
+**Files modified:** `style.css`, `script.js`  
+**Description:**
+- **Tightened Section Padding:** Reduced excess section padding around the reviews card so 'Get in touch' is visible without excessive scrolling, consistent across all review slides. Set `.reviews-scroll` padding to `50px 0 30px` (mobile `36px 0 24px`) and `.contact` padding to `50px 0 60px` (mobile `48px 0 50px`).
+- **Standard Flow Container:** Configured `.reviews-sticky` to `position: relative; width: 100%;` removing dead space voids above and below the card.
+- **Immediate Visibility:** On a standard 1080p viewport, both the Reviews card and the 'Get in touch' heading are visible in the same viewport with a clean, compact ~80px gap between them.
+- **Interactive Carousel:** Refined `computeReviewsTarget()` and `setupReviewsNav()` to provide smooth scroll transitions and instant dot navigation across all 5 review atmospheres.
+
+---
+
 ## Summary
 | # | Revision | Status |
 |---|----------|--------|
@@ -332,3 +343,4 @@ _Date: 2026-09-01_
 | 10 | Padding removal & progressive movement | ✅ Done |
 | 11 | Reviews section height −30% (root cause fixed) & default cursor restored | ✅ Done |
 | 12 | Corrected review card overflow & consistent layout across slides | ✅ Done |
+| 13 | Tightened reviews section padding to remove excess whitespace | ✅ Done |
