@@ -293,6 +293,15 @@ _Date: 2026-09-01_
 
 ---
 
+## Revision 11 — Reviews Section Height Reduction (−30%) & Default OS Cursor Restoration
+**Date:** 2026-09-02  
+**Files modified:** `style.css`, `script.js`  
+**Description:**
+- **Reviews Section Height (−30%):** Reduced the overall height of the "Verified reviews" / Client Stories section (`.reviews-scroll`) by 30% from `180vh` to `126vh` (and mobile viewport from `160vh` to `112vh`). All content inside the testimonial card (stars, quote typography, reviewer name, project location, and navigation dots) remains proportionally centered and fully readable without any text clipping or overflow. Font sizes, palette colors, and scroll carousel logic remain untouched.
+- **Default OS Cursor Restoration:** Reverted the cursor back to the default OS cursor by removing `cursor: none;` on `body` and interactive elements (`a`, `button`, `input`, etc.), and removing the custom thin line DOM element (`setupLineCursor()` / `.custom-cursor`). The silk trailing physics animation (`CustomCursor`) and Section 3 photo buffer trail (`setupCursorBuffer()`) remain 100% active and functional.
+
+---
+
 ## Summary
 | # | Revision | Status |
 |---|----------|--------|
@@ -306,3 +315,4 @@ _Date: 2026-09-01_
 | 8 | Reviews cohesive palette & atmospheres | ✅ Done |
 | 9 | Reviews scroll-driven animation | ✅ Done |
 | 10 | Padding removal & progressive movement | ✅ Done |
+| 11 | Reviews section height −30% & default cursor restored | ✅ Done |

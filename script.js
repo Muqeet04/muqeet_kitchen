@@ -831,29 +831,6 @@
     this.rafId = requestAnimationFrame(this.render);
   };
 
-  // ===== THIN LINE VERTICAL CURSOR (SITE-WIDE) =====
-  function setupLineCursor() {
-    if (typeof window === 'undefined' || matchMedia('(hover: none) and (pointer: coarse)').matches) return;
-    var cursor = document.createElement('div');
-    cursor.className = 'custom-cursor';
-    cursor.setAttribute('aria-hidden', 'true');
-    document.body.appendChild(cursor);
-
-    window.addEventListener('mousemove', function(e) {
-      cursor.style.left = e.clientX + 'px';
-      cursor.style.top = e.clientY + 'px';
-      cursor.style.opacity = '1';
-    }, { passive: true });
-
-    document.addEventListener('mouseleave', function() {
-      cursor.style.opacity = '0';
-    });
-
-    document.addEventListener('mouseenter', function() {
-      cursor.style.opacity = '1';
-    });
-  }
-
   // ===== INIT =====
   window.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('resize', onResize, { passive: true });
@@ -870,7 +847,6 @@
   setupReveals();
   setupCursorBuffer();
   setupReviewsNav();
-  setupLineCursor();
   new CustomCursor();
 })();
 

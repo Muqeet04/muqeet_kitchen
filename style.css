@@ -39,11 +39,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
   overflow-x: hidden;
-  cursor: none;
-}
-
-body a, body button, body input, body textarea, body select, body [role="button"] {
-  cursor: none;
 }
 
 a {
@@ -1062,7 +1057,7 @@ nav {
 /* 12. SECTION 6: Client Reviews (Scroll-Driven 5-Review Carousel) */
 .reviews-scroll {
   position: relative;
-  height: 180vh;
+  height: 126vh;
   background: var(--shore);
   border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
@@ -1248,7 +1243,7 @@ nav {
 }
 
 @media (max-width: 820px) {
-  .reviews-scroll { height: 160vh; }
+  .reviews-scroll { height: 112vh; }
   .reviews-sticky { top: var(--headerH, 70px); height: calc(100vh - var(--headerH, 70px)); height: calc(100dvh - var(--headerH, 70px)); }
   .reviews-display-card { padding: 22px 16px; min-height: 200px; }
   .review-slide .review-quote { font-size: clamp(16px, 4.8vw, 22px); }
@@ -1365,19 +1360,7 @@ footer {
   color: var(--accent);
 }
 
-/* 14. BELGRADE ARBOR HARMONIC SILK CANVAS CURSOR & THIN LINE CURSOR */
-.custom-cursor {
-  width: 2px;
-  height: 24px;
-  background: rgba(255, 255, 255, 0.85);
-  border-radius: 0;
-  pointer-events: none;
-  position: fixed;
-  transform: translate(-50%, -50%);
-  z-index: 9999;
-  transition: opacity 0.2s;
-}
-
+/* 14. BELGRADE ARBOR HARMONIC SILK CANVAS TRAIL */
 .belgrade-cursor-canvas {
   position: fixed;
   inset: 0;
@@ -1388,9 +1371,8 @@ footer {
   mix-blend-mode: screen;
 }
 
-/* On mobile/touch devices, hide custom cursors to save GPU cycles */
+/* On mobile/touch devices, hide trail canvas to save GPU cycles */
 @media (max-width: 991px), (hover: none) and (pointer: coarse) {
-  .custom-cursor,
   .belgrade-cursor-canvas {
     display: none !important;
   }
