@@ -416,29 +416,25 @@
     }
   ];
 
-  var reviewScrollThresholds = [0, 0.20, 0.40, 0.60, 0.80];
   function computeReviewsTarget() {
     if (!reviewsSection || !reviewSlides.length) return;
     var rect = reviewsSection.getBoundingClientRect();
-    var vh = window.innerHeight;
+    var stickyTop = header ? header.offsetHeight : 78;
+    var total = reviewsSection.offsetHeight - (window.innerHeight - stickyTop);
+    if (total <= 0) return;
 
-    var startOffset = vh * 0.80;
-    var scrollDistance = rect.height + vh * 0.45;
-    var current = startOffset - rect.top;
+    // Current scroll distance past the sticky pin point
+    var current = stickyTop - rect.top;
 
-    if (current < 0) {
+    // Before pinning, keep Review 01 clearly displayed in full view
+    if (current <= 0) {
       if (currentActiveReview !== 0) setActiveReview(0);
       return;
     }
 
-    var progress = clamp(current / scrollDistance, 0, 0.999);
-    var targetIdx = 0;
-    for (var i = reviewScrollThresholds.length - 1; i >= 0; i--) {
-      if (progress >= reviewScrollThresholds[i]) {
-        targetIdx = i;
-        break;
-      }
-    }
+    var progress = clamp(current / total, 0, 0.999);
+    var numReviews = reviewSlides.length;
+    var targetIdx = Math.min(numReviews - 1, Math.floor(progress * numReviews));
 
     if (targetIdx !== currentActiveReview) {
       setActiveReview(targetIdx);
@@ -484,7 +480,11 @@
       dot.addEventListener('click', function(e) {
         e.preventDefault();
         var idx = parseInt(dot.dataset.idx, 10);
-        if (!isNaN(idx)) {
+        if (!isNaN(idx) && reviewsSection) {
+          var stickyTop = header ? header.offsetHeight : 78;
+          var total = reviewsSection.offsetHeight - (window.innerHeight - stickyTop);
+          var targetScroll = window.scrollY + reviewsSection.getBoundingClientRect().top - stickyTop + (total * (idx + 0.1) / reviewSlides.length);
+          window.scrollTo({ top: targetScroll, behavior: 'smooth' });
           setActiveReview(idx);
         }
       });

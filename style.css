@@ -1059,19 +1059,24 @@ nav {
   .hgallery-progress { left: 24px; right: 24px; }
 }
 
-/* 12. SECTION 6: Client Reviews (Dynamic Background & Carousel) */
+/* 12. SECTION 6: Client Reviews (Scroll-Driven 5-Review Carousel) */
 .reviews-scroll {
   position: relative;
-  padding: 90px 0 80px;
+  height: 240vh;
   background: var(--shore);
   border-top: 1px solid rgba(255, 255, 255, 0.08);
-  overflow: hidden;
 }
 
 .reviews-sticky {
-  position: relative;
-  width: 100%;
+  position: sticky;
+  top: var(--headerH, 78px);
+  height: calc(100vh - var(--headerH, 78px));
+  height: calc(100dvh - var(--headerH, 78px));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   overflow: hidden;
+  padding: 20px 0;
 }
 
 .reviews-bg {
@@ -1242,7 +1247,8 @@ nav {
 }
 
 @media (max-width: 820px) {
-  .reviews-scroll { padding: 60px 0; }
+  .reviews-scroll { height: 210vh; }
+  .reviews-sticky { top: var(--headerH, 70px); height: calc(100vh - var(--headerH, 70px)); height: calc(100dvh - var(--headerH, 70px)); }
   .reviews-display-card { padding: 26px 18px; min-height: 220px; }
   .review-slide .review-quote { font-size: clamp(17px, 5vw, 24px); }
   .reviews-top-bar { flex-direction: column; align-items: flex-start; gap: 12px; }

@@ -281,9 +281,9 @@ _Date: 2026-09-01_
 
 ---
 
-## Revision 9 — Scroll-Driven Review Animation (Replaced Auto-Rotation)
-**Files modified:** `script.js`  
-**Description:** Removed automatic interval review transitions. Implemented responsive viewport-relative scroll progression calculation (`computeReviewsTarget()`), so that as the user scrolls through the Verified Reviews section, the reviews animate (01 → 02 → 03 → 04 → 05) directly driven by their scroll position, with smooth transitions between slides, counter updates, and ambient glow shifts. Manual dot clicking remains fully supported.
+## Revision 9 — Pinned Scroll-Driven Review Animation
+**Files modified:** `style.css`, `script.js`  
+**Description:** Configured Section 6 (`.reviews-scroll`) with a dedicated 240vh scroll track and sticky centering. Prior to reaching the pinned header position, Review 01 (`01 / 05`) remains locked and completely visible in full view so reviews never jump before the user sees them. Once locked in view, scrolling comfortably advances through all 5 reviews (01 → 02 → 03 → 04 → 05) with equal pacing before unpinning to reveal Section 7. Dot navigation smoothly scrolls to the exact position of any review.
 
 ---
 
