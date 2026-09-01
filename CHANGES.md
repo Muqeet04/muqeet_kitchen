@@ -73,11 +73,12 @@ _Date: 2026-09-01_
 
 ---
 
-## Revision 2 — Loading Screen Text
-**Files modified:** `index.html`
-**Element:** `#loader .load-mark small`
-**Before:** `<small>KITCHEN APPLIANCES</small>`
-**After:** `<small>KITCHEN APPLIANCES • EST • 1983</small>`
+## Revision 2 — Loading Screen Text & Speed Pacing (−30%)
+**Files modified:** `index.html`, `script.js`, `style.css`
+**Element:** `#loader .load-mark small`, `startSmoothLoader()`, `.load-bar i`
+**Before Text:** `<small>KITCHEN APPLIANCES</small>`
+**After Text:** `<small>KITCHEN APPLIANCES • EST • 1983</small>`
+**Loading Speed Pacing:** Added `startSmoothLoader()` with gradual progress easing (`step: diff * 0.045`) slowing down the progress progression by ~30% for a smooth, deliberate luxury entrance that lets users comfortably read each stage label.
 
 ---
 

@@ -65,6 +65,10 @@
   }
 
   // ===== LOADING =====
+  var displayProgress = 0;
+  var targetProgress = 0;
+  var loaderInterval = null;
+
   function setProgress(pct) {
     pct = Math.max(0, Math.min(100, pct));
     if (loadFill) loadFill.style.width = pct + '%';
@@ -76,8 +80,29 @@
     if (loadStatus) loadStatus.textContent = msg + '… ' + Math.round(pct) + '%';
   }
 
+  function startSmoothLoader() {
+    if (loaderInterval) return;
+    loaderInterval = setInterval(function() {
+      if (displayProgress < targetProgress) {
+        var diff = targetProgress - displayProgress;
+        var step = Math.max(0.25, diff * 0.045); // ~30% slowed down smooth easing
+        displayProgress += step;
+      }
+      if (displayProgress > 100) displayProgress = 100;
+      setProgress(displayProgress);
+
+      if (displayProgress >= 99.5 && loadedCount >= TOTAL_FRAMES) {
+        clearInterval(loaderInterval);
+        loaderInterval = null;
+        setProgress(100);
+        setTimeout(onAllFramesLoaded, 350);
+      }
+    }, 25);
+  }
+
   // ===== FRAME PRELOADING =====
   function preloadFrames() {
+    startSmoothLoader();
     for (var i = 1; i <= TOTAL_FRAMES; i++) {
       var img = new Image();
       img.src = 'frames/frame_' + String(i).padStart(4, '0') + '.webp';
@@ -89,10 +114,7 @@
 
   function onFrameLoaded() {
     loadedCount++;
-    setProgress((loadedCount / TOTAL_FRAMES) * 100);
-    if (loadedCount >= TOTAL_FRAMES) {
-      onAllFramesLoaded();
-    }
+    targetProgress = (loadedCount / TOTAL_FRAMES) * 100;
   }
 
   function onAllFramesLoaded() {
@@ -106,7 +128,7 @@
       loader.classList.add('gone');
       setTimeout(function() {
         if (loader && loader.parentNode) loader.parentNode.removeChild(loader);
-      }, 750);
+      }, 850);
     }
     computeHeroTarget();
     requestAnimationFrame(tick);
