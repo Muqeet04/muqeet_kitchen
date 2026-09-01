@@ -243,65 +243,55 @@
   </div>
 </section>
 
-<!-- ========== SECTION 6: CLIENT REVIEWS (SCROLL-DRIVEN 5 REVIEWS) ========== -->
+<!-- ========== SECTION 6: CLIENT REVIEWS (HORIZONTAL SCROLL) ========== -->
 <section class="reviews-scroll" id="reviews">
-  <div class="reviews-sticky" id="reviewsSticky">
-    <div class="reviews-bg" id="reviewsBg"></div>
-    <div class="reviews-glow"></div>
-    
-    <div class="wrap reviews-content">
-      <div class="reviews-top-bar">
-        <div>
-          <div class="eyebrow">Client stories</div>
-          <h2>Verified reviews</h2>
-        </div>
-        <div class="reviews-counter">
-          <span class="curr-review" id="reviewCurr">01</span><span class="counter-sep"> / </span><span class="total-reviews">05</span>
-        </div>
+  <div class="reviews-bg" id="reviewsBg"></div>
+  <div class="reviews-glow"></div>
+  
+  <div class="wrap reviews-header-wrap">
+    <div class="reviews-top-bar">
+      <div>
+        <div class="eyebrow">Client stories</div>
+        <h2>Verified reviews</h2>
       </div>
+    </div>
+  </div>
 
-      <div class="glass reviews-display-card">
+  <div class="reviews-track-wrap" id="reviewsTrackWrap">
+    <div class="reviews-track" id="reviewsTrack">
+      <!-- Review 1 -->
+      <div class="glass review-card" data-index="0" data-bg="#1A0A0E">
         <div class="reviews-stars">★★★★★</div>
-        
-        <div class="reviews-stack" id="reviewsStack">
-          <!-- Review 1 -->
-          <div class="review-slide is-active" data-index="0" data-bg="#1A0A0E">
-            <blockquote class="review-quote">&ldquo;They left on Friday; we cooked for twelve on Saturday. It is undoubtedly the finest and warmest room in the house.&rdquo;</blockquote>
-            <div class="review-who"><b>A. Richardson</b> &nbsp;·&nbsp; Surrey Estate Kitchen</div>
-          </div>
-          
-          <!-- Review 2 -->
-          <div class="review-slide" data-index="1" data-bg="#2C0E14">
-            <blockquote class="review-quote">&ldquo;Our fluted oak island has become the true centerpiece of our home. Exceptional bespoke craftsmanship from bench to fit.&rdquo;</blockquote>
-            <div class="review-who"><b>Elena V.</b> &nbsp;·&nbsp; Chelsea Residence</div>
-          </div>
-          
-          <!-- Review 3 -->
-          <div class="review-slide" data-index="2" data-bg="#1A0A16">
-            <blockquote class="review-quote">&ldquo;The five-day turnaround felt like magic. Uncompromising joinery, seamless stone joints, and absolutely zero mess left behind.&rdquo;</blockquote>
-            <div class="review-who"><b>Shahzad D.</b> &nbsp;·&nbsp; Full Kitchen Renovation</div>
-          </div>
-          
-          <!-- Review 4 -->
-          <div class="review-slide" data-index="3" data-bg="#2E1310">
-            <blockquote class="review-quote">&ldquo;Every soft-close drawer and unlacquered brass tap was fitted with obsessive, artisan precision. A total masterclass.&rdquo;</blockquote>
-            <div class="review-who"><b>Marcus &amp; Claire T.</b> &nbsp;·&nbsp; Wimbledon Townhouse</div>
-          </div>
-          
-          <!-- Review 5 -->
-          <div class="review-slide" data-index="4" data-bg="#140508">
-            <blockquote class="review-quote">&ldquo;No subcontractors, no excuses. Just dedicated master craftspeople who take genuine, uncompromising pride in their work.&rdquo;</blockquote>
-            <div class="review-who"><b>Julian B.</b> &nbsp;·&nbsp; Kensington Pavilion</div>
-          </div>
-        </div>
-
-        <div class="reviews-nav-dots" id="reviewsDots">
-          <button class="dot-btn is-active" data-idx="0" aria-label="Review 1"></button>
-          <button class="dot-btn" data-idx="1" aria-label="Review 2"></button>
-          <button class="dot-btn" data-idx="2" aria-label="Review 3"></button>
-          <button class="dot-btn" data-idx="3" aria-label="Review 4"></button>
-          <button class="dot-btn" data-idx="4" aria-label="Review 5"></button>
-        </div>
+        <blockquote class="review-quote">&ldquo;They left on Friday; we cooked for twelve on Saturday. It is undoubtedly the finest and warmest room in the house.&rdquo;</blockquote>
+        <div class="review-who"><b>A. Richardson</b> &nbsp;·&nbsp; Surrey Estate Kitchen</div>
+      </div>
+      
+      <!-- Review 2 -->
+      <div class="glass review-card" data-index="1" data-bg="#2C0E14">
+        <div class="reviews-stars">★★★★★</div>
+        <blockquote class="review-quote">&ldquo;Our fluted oak island has become the true centerpiece of our home. Exceptional bespoke craftsmanship from bench to fit.&rdquo;</blockquote>
+        <div class="review-who"><b>Elena V.</b> &nbsp;·&nbsp; Chelsea Residence</div>
+      </div>
+      
+      <!-- Review 3 -->
+      <div class="glass review-card" data-index="2" data-bg="#1A0A16">
+        <div class="reviews-stars">★★★★★</div>
+        <blockquote class="review-quote">&ldquo;The five-day turnaround felt like magic. Uncompromising joinery, seamless stone joints, and absolutely zero mess left behind.&rdquo;</blockquote>
+        <div class="review-who"><b>Shahzad D.</b> &nbsp;·&nbsp; Full Kitchen Renovation</div>
+      </div>
+      
+      <!-- Review 4 -->
+      <div class="glass review-card" data-index="3" data-bg="#2E1310">
+        <div class="reviews-stars">★★★★★</div>
+        <blockquote class="review-quote">&ldquo;Every soft-close drawer and unlacquered brass tap was fitted with obsessive, artisan precision. A total masterclass.&rdquo;</blockquote>
+        <div class="review-who"><b>Marcus &amp; Claire T.</b> &nbsp;·&nbsp; Wimbledon Townhouse</div>
+      </div>
+      
+      <!-- Review 5 -->
+      <div class="glass review-card" data-index="4" data-bg="#140508">
+        <div class="reviews-stars">★★★★★</div>
+        <blockquote class="review-quote">&ldquo;No subcontractors, no excuses. Just dedicated master craftspeople who take genuine, uncompromising pride in their work.&rdquo;</blockquote>
+        <div class="review-who"><b>Julian B.</b> &nbsp;·&nbsp; Kensington Pavilion</div>
       </div>
     </div>
   </div>

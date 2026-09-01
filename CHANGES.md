@@ -328,6 +328,18 @@ _Date: 2026-09-01_
 
 ---
 
+## Revision 14 — Horizontal Scroll-Snap Reviews with Edge Fade Animation
+**Date:** 2026-09-02  
+**Files modified:** `index.html`, `style.css`, `script.js`  
+**Description:**
+- **Horizontal Scroll-Snap Layout:** Replaced reviews carousel (dot pagination) with horizontal scroll-snap layout and edge fade animation.
+- **Card Sizing & Overflow Protection:** Sized each `.review-card` to a fixed width (`clamp(360px, 42vw, 540px)` on desktop, `clamp(280px, 80vw, 360px)` on mobile) with fixed/min-height (`290px` / `250px`), with partial cards visible at edges to hint at additional content.
+- **Edge Fade Animation:** Applied CSS mask-image gradient (`mask-image: linear-gradient(...)`) on the track container so cards smoothly fade out as they reach the left and right scroll boundaries.
+- **Interaction & Ambient Atmosphere:** Enabled native touch swiping, horizontal wheel/trackpad scrolling, and click-drag mouse navigation with dynamic glow atmosphere synchronization.
+- **Content Integrity:** All 5 reviews (5 stars, quote typography, author, and project location) preserved 100%.
+
+---
+
 ## Summary
 | # | Revision | Status |
 |---|----------|--------|
@@ -344,3 +356,4 @@ _Date: 2026-09-01_
 | 11 | Reviews section height −30% (root cause fixed) & default cursor restored | ✅ Done |
 | 12 | Corrected review card overflow & consistent layout across slides | ✅ Done |
 | 13 | Tightened reviews section padding to remove excess whitespace | ✅ Done |
+| 14 | Replaced reviews carousel (dot pagination) with horizontal scroll-snap layout and edge fade animation | ✅ Done |

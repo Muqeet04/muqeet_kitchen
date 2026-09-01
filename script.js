@@ -377,11 +377,9 @@
 
   // ===== SECTION 6: SCROLL-DRIVEN REVIEWS =====
   var reviewsSection = document.getElementById('reviews');
+  // ===== SECTION 6: CLIENT REVIEWS (HORIZONTAL SCROLL & GLOW) =====
   var reviewsBg = document.getElementById('reviewsBg');
-  var reviewCurr = document.getElementById('reviewCurr');
-  var reviewSlides = Array.prototype.slice.call(document.querySelectorAll('.review-slide'));
-  var reviewDots = Array.prototype.slice.call(document.querySelectorAll('#reviewsDots .dot-btn'));
-  var currentActiveReview = 0;
+  var reviewsTrack = document.getElementById('reviewsTrack');
 
   var REVIEW_ATMOSPHERES = [
     // Review 1: Heritage Shaker — Warm Brass & Terracotta glow
@@ -416,71 +414,80 @@
     }
   ];
 
-  function computeReviewsTarget() {
-    if (!reviewsSection || !reviewSlides.length) return;
-    var rect = reviewsSection.getBoundingClientRect();
-    var winH = window.innerHeight;
-    if (rect.bottom < 0 || rect.top > winH) return;
-    var progress = clamp((winH * 0.65 - rect.top) / (rect.height + winH * 0.35), 0, 0.999);
-    var numReviews = reviewSlides.length;
-    var targetIdx = Math.min(numReviews - 1, Math.floor(progress * numReviews));
+  function setupReviewsHorizontal() {
+    var track = document.getElementById('reviewsTrack');
+    if (!track) return;
 
-    if (targetIdx !== currentActiveReview) {
-      setActiveReview(targetIdx);
-    }
-  }
+    var isDown = false;
+    var startX = 0;
+    var scrollLeft = 0;
+    var isDragging = false;
 
-  function setActiveReview(idx) {
-    currentActiveReview = idx;
-
-    reviewSlides.forEach(function(slide, i) {
-      if (i === idx) {
-        slide.classList.add('is-active');
-      } else {
-        slide.classList.remove('is-active');
-      }
+    // Mouse drag-to-scroll
+    track.addEventListener('mousedown', function(e) {
+      isDown = true;
+      isDragging = false;
+      track.classList.add('is-dragging');
+      startX = e.pageX - track.offsetLeft;
+      scrollLeft = track.scrollLeft;
     });
 
-    reviewDots.forEach(function(dot, i) {
-      if (i === idx) {
-        dot.classList.add('is-active');
-      } else {
-        dot.classList.remove('is-active');
-      }
+    window.addEventListener('mouseup', function() {
+      if (!isDown) return;
+      isDown = false;
+      track.classList.remove('is-dragging');
     });
 
-    if (reviewCurr) {
-      reviewCurr.textContent = String(idx + 1).padStart(2, '0');
-    }
+    track.addEventListener('mousemove', function(e) {
+      if (!isDown) return;
+      e.preventDefault();
+      isDragging = true;
+      var x = e.pageX - track.offsetLeft;
+      var walk = (x - startX) * 1.5;
+      track.scrollLeft = scrollLeft - walk;
+    });
 
-    var glowEl = document.querySelector('.reviews-glow');
-    var cardEl = document.querySelector('.reviews-display-card');
-    if (REVIEW_ATMOSPHERES[idx]) {
-      if (glowEl) glowEl.style.background = REVIEW_ATMOSPHERES[idx].glow;
-      if (cardEl) {
-        cardEl.style.background = REVIEW_ATMOSPHERES[idx].cardBg;
-        cardEl.style.borderColor = REVIEW_ATMOSPHERES[idx].border;
-      }
-    }
-  }
-
-  function setupReviewsNav() {
-    reviewDots.forEach(function(dot) {
-      dot.addEventListener('click', function(e) {
+    track.addEventListener('click', function(e) {
+      if (isDragging) {
         e.preventDefault();
-        var idx = parseInt(dot.dataset.idx, 10);
-        if (!isNaN(idx)) {
-          setActiveReview(idx);
+        e.stopPropagation();
+      }
+    });
+
+    // Ambient glow synchronizer based on center visible card
+    var cards = Array.prototype.slice.call(track.querySelectorAll('.review-card'));
+    var glowEl = document.querySelector('.reviews-glow');
+
+    function updateActiveAtmosphere() {
+      if (!cards.length || !glowEl) return;
+      var trackRect = track.getBoundingClientRect();
+      var centerX = trackRect.left + trackRect.width / 2;
+      var closestIdx = 0;
+      var closestDist = Infinity;
+
+      cards.forEach(function(card, idx) {
+        var cardRect = card.getBoundingClientRect();
+        var cardCenter = cardRect.left + cardRect.width / 2;
+        var dist = Math.abs(cardCenter - centerX);
+        if (dist < closestDist) {
+          closestDist = dist;
+          closestIdx = idx;
         }
       });
-    });
+
+      if (REVIEW_ATMOSPHERES[closestIdx]) {
+        glowEl.style.background = REVIEW_ATMOSPHERES[closestIdx].glow;
+      }
+    }
+
+    track.addEventListener('scroll', updateActiveAtmosphere, { passive: true });
+    updateActiveAtmosphere();
   }
 
   // ===== EVENT LISTENERS =====
   function onScroll() {
     computeHeroTarget();
     computeGalleryTarget();
-    computeReviewsTarget();
   }
 
   function onResize() {
@@ -490,7 +497,6 @@
     }
     computeHeroTarget();
     computeGalleryTarget();
-    computeReviewsTarget();
   }
 
   // ===== MOBILE NAV TOGGLE =====
@@ -822,7 +828,7 @@
   preloadFrames();
   setupReveals();
   setupCursorBuffer();
-  setupReviewsNav();
+  setupReviewsHorizontal();
   new CustomCursor();
 })();
 
