@@ -383,12 +383,12 @@
   var reviewDots = Array.prototype.slice.call(document.querySelectorAll('#reviewsDots .dot-btn'));
   var currentActiveReview = 0;
 
-  var REVIEW_COLORS = [
-    '#1A0A0E', // Review 1: Rich Licorice Wine
-    '#2C0E14', // Review 2: Deep Roasted Burgundy
-    '#1A0A16', // Review 3: Smoked Mulberry Charcoal
-    '#2E1310', // Review 4: Warm Terracotta Mahogany
-    '#140508'  // Review 5: Midnight Black Bean
+  var REVIEW_GRADIENTS = [
+    'radial-gradient(circle at 70% 30%, rgba(176, 67, 36, 0.24) 0%, transparent 60%), linear-gradient(150deg, #1A0A0E 0%, #290F15 45%, #18080C 100%)', // Review 1: Heritage Licorice & Terracotta
+    'radial-gradient(circle at 30% 65%, rgba(190, 80, 45, 0.26) 0%, transparent 65%), linear-gradient(150deg, #1C0B10 0%, #341219 50%, #1A0A0E 100%)', // Review 2: Roasted Auburn & Oak Wine
+    'radial-gradient(circle at 75% 70%, rgba(150, 50, 65, 0.24) 0%, transparent 60%), linear-gradient(150deg, #16080D 0%, #280E18 50%, #13060A 100%)', // Review 3: Smoked Mulberry & Charcoal
+    'radial-gradient(circle at 25% 30%, rgba(234, 155, 118, 0.25) 0%, transparent 65%), linear-gradient(150deg, #1E0C10 0%, #361516 48%, #19090D 100%)', // Review 4: Glowing Amber Brass & Mahogany
+    'radial-gradient(circle at 60% 40%, rgba(160, 55, 40, 0.22) 0%, transparent 65%), linear-gradient(150deg, #140508 0%, #260D12 50%, #120406 100%)'  // Review 5: Midnight Espresso & Burnished Copper
   ];
 
   function computeReviewsTarget() {
@@ -429,8 +429,8 @@
       reviewCurr.textContent = String(idx + 1).padStart(2, '0');
     }
 
-    if (reviewsBg && REVIEW_COLORS[idx]) {
-      reviewsBg.style.backgroundColor = REVIEW_COLORS[idx];
+    if (reviewsBg && REVIEW_GRADIENTS[idx]) {
+      reviewsBg.style.background = REVIEW_GRADIENTS[idx];
     }
   }
 

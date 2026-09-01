@@ -268,13 +268,27 @@ _Date: 2026-09-01_
 
 ---
 
+## Revision 8 — Reviews Unified Multi-Tone Gradient System
+**Files modified:** `style.css`, `script.js`
+**Description:** Harmonized the background of the reviews section with the overall website palette (`--shore`, `--shore-2`, warm brass, terracotta, and rich roasted auburn) while providing 5 distinct multi-tone gradients that give each review its own unique atmosphere without disrupting the site's cohesive luxury aesthetic.
+
+**Gradients implemented:**
+1. **Review 1 (Surrey Estate):** `radial-gradient(circle at 70% 30%, rgba(176, 67, 36, 0.24) 0%, transparent 60%), linear-gradient(150deg, #1A0A0E 0%, #290F15 45%, #18080C 100%)` (Heritage Licorice & Terracotta)
+2. **Review 2 (Chelsea Residence):** `radial-gradient(circle at 30% 65%, rgba(190, 80, 45, 0.26) 0%, transparent 65%), linear-gradient(150deg, #1C0B10 0%, #341219 50%, #1A0A0E 100%)` (Roasted Auburn & Oak Wine)
+3. **Review 3 (Full Renovation):** `radial-gradient(circle at 75% 70%, rgba(150, 50, 65, 0.24) 0%, transparent 60%), linear-gradient(150deg, #16080D 0%, #280E18 50%, #13060A 100%)` (Smoked Mulberry & Charcoal)
+4. **Review 4 (Wimbledon):** `radial-gradient(circle at 25% 30%, rgba(234, 155, 118, 0.25) 0%, transparent 65%), linear-gradient(150deg, #1E0C10 0%, #361516 48%, #19090D 100%)` (Glowing Amber Brass & Mahogany)
+5. **Review 5 (Kensington):** `radial-gradient(circle at 60% 40%, rgba(160, 55, 40, 0.22) 0%, transparent 65%), linear-gradient(150deg, #140508 0%, #260D12 50%, #120406 100%)` (Midnight Espresso & Burnished Copper)
+
+---
+
 ## Summary
 | # | Revision | Status |
 |---|----------|--------|
 | 1 | Images to portrait (S3 + S5) | ✅ Done |
-| 2 | Loading screen text | ✅ Done |
-| 3 | Section 6 height −30% | ✅ Done |
-| 4 | Section 5 lighter gradient | ✅ Done |
+| 2 | Loading screen text & speed pacing | ✅ Done |
+| 3 | Section 6 height & gap closure | ✅ Done |
+| 4 | Section 5 multi-tone radiant gradient | ✅ Done |
 | 5 | Cursor: line shape, trail kept | ✅ Done |
 | 6 | Heading: 2 lines | ✅ Done |
 | 7 | Hero tagline → white | ✅ Done |
+| 8 | Reviews cohesive multi-tone gradients | ✅ Done |
