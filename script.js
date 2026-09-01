@@ -435,18 +435,44 @@
   }
 
   function setupReviewsNav() {
+    var autoTimer = null;
+
+    function nextReview() {
+      var next = (currentActiveReview + 1) % reviewSlides.length;
+      setActiveReview(next);
+    }
+
     reviewDots.forEach(function(dot) {
-      dot.addEventListener('click', function() {
+      dot.addEventListener('click', function(e) {
+        e.preventDefault();
         var idx = parseInt(dot.dataset.idx, 10);
-        if (!isNaN(idx) && reviewsSection) {
-          var rect = reviewsSection.getBoundingClientRect();
-          var total = reviewsSection.offsetHeight - window.innerHeight;
-          var targetScroll = window.scrollY + rect.top + (total * (idx + 0.1) / reviewSlides.length);
-          window.scrollTo({ top: targetScroll, behavior: 'smooth' });
+        if (!isNaN(idx)) {
           setActiveReview(idx);
+          if (autoTimer) {
+            clearInterval(autoTimer);
+            autoTimer = setInterval(nextReview, 5000);
+          }
         }
       });
     });
+
+    if ('IntersectionObserver' in window && reviewsSection) {
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            if (!autoTimer) {
+              autoTimer = setInterval(nextReview, 5000);
+            }
+          } else {
+            if (autoTimer) {
+              clearInterval(autoTimer);
+              autoTimer = null;
+            }
+          }
+        });
+      }, { threshold: 0.2 });
+      observer.observe(reviewsSection);
+    }
   }
 
   // ===== EVENT LISTENERS =====

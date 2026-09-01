@@ -82,9 +82,11 @@ _Date: 2026-09-01_
 
 ---
 
-## Revision 3 — Section 6 Height Reduction & Space Elimination
-**Files modified:** `style.css`
-**Selector:** `.reviews-scroll`, `.reviews-sticky`, `.reviews-display-card`, `.review-slide .review-quote`, `.contact`
+## Revision 3 — Whitespace Elimination & Section Gap Closure
+**Date:** 2026-09-01  
+**Files touched:** `style.css`, `script.js`  
+**Description:** Removed excess whitespace above Reviews section and closed the gap between Reviews and the final section by pulling the final section up.
+
 **Before:**
 ```css
 .reviews-scroll {
@@ -132,45 +134,46 @@ _Date: 2026-09-01_
 
 **After:**
 ```css
+.hgallery {
+  position: relative;
+  height: 300vh; /* Reduced from 400vh to remove trailing scroll gap before Reviews */
+  ...
+}
+
 .reviews-scroll {
   position: relative;
-  height: 180vh; /* Reduced scroll track to eliminate empty bottom void */
+  padding: 90px 0 80px; /* Standard section padding, eliminates top/bottom voids */
   background: var(--ink);
+  overflow: hidden;
 }
 
 .reviews-sticky {
-  position: sticky;
-  top: var(--headerH, 78px); /* Sits snugly below header, eliminating top empty space */
-  height: calc(100vh - var(--headerH, 78px));
-  height: calc(100dvh - var(--headerH, 78px));
+  position: relative;
+  width: 100%;
   overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 10px 0;
 }
 
 .reviews-top-bar {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  margin-bottom: 20px;
+  margin-bottom: 24px;
 }
 
 .reviews-display-card {
   position: relative;
-  padding: 38px 42px; /* Balanced padding */
+  padding: 44px 46px;
   max-width: 980px;
   margin: 0 auto;
   text-align: center;
   border-radius: 24px;
-  min-height: 250px; /* Compact height */
+  min-height: 250px;
   ...
 }
 
 .review-slide .review-quote {
   font-family: var(--serif);
-  font-size: clamp(22px, 3.1vw, 38px); /* Sized to prevent text clipping */
+  font-size: clamp(22px, 3.1vw, 38px);
   line-height: 1.32;
   color: var(--pure-white);
   margin-bottom: 18px;
@@ -178,7 +181,7 @@ _Date: 2026-09-01_
 }
 
 .contact {
-  padding: 80px 0 60px; /* Connects smoothly to fill bottom space */
+  padding: 90px 0 60px; /* Sits directly after Reviews with no dead space */
   ...
 }
 ```
