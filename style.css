@@ -39,6 +39,11 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
   overflow-x: hidden;
+  cursor: none;
+}
+
+body a, body button, body input, body textarea, body select, body [role="button"] {
+  cursor: none;
 }
 
 a {
@@ -385,12 +390,12 @@ nav {
 }
 
 .hero-tag {
-  color: #8B1A1A !important;
+  color: #FFFFFF !important;
   font-weight: 700;
   font-size: 13px;
   letter-spacing: .3em;
   margin-bottom: 22px;
-  text-shadow: 0 2px 16px rgba(0, 0, 0, .95);
+  text-shadow: 0 2px 20px rgba(0, 0, 0, .95);
 }
 
 .hero-title {
@@ -725,7 +730,6 @@ nav {
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: crosshair;
 }
 
 .cursor-buffer__trail {
@@ -739,9 +743,9 @@ nav {
 
 .cursor-buffer__trail-item {
   position: absolute;
-  width: clamp(220px, 24vw, 340px);
-  aspect-ratio: 4 / 3;
-  border-radius: 16px;
+  width: clamp(140px, 15vw, 200px);
+  aspect-ratio: 2 / 3;
+  border-radius: 14px;
   overflow: hidden;
   pointer-events: none;
   transform: translate(-50%, -50%) scale(0.6) rotate(0deg);
@@ -766,6 +770,7 @@ nav {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center;
   display: block;
 }
 
@@ -775,7 +780,7 @@ nav {
   text-align: center;
   padding: 40px 24px;
   pointer-events: none;
-  max-width: 840px;
+  max-width: 960px;
 }
 
 .cursor-buffer__hint {
@@ -791,11 +796,12 @@ nav {
 
 .cursor-buffer__title {
   font-family: var(--serif);
-  font-size: clamp(2.6rem, 5.8vw, 4.6rem);
+  font-size: clamp(42px, 5.5vw, 80px);
   font-weight: 700;
   color: var(--ink);
   line-height: 1.12;
   margin-bottom: 38px;
+  text-align: center;
 }
 
 .cursor-buffer__buttons {
@@ -847,10 +853,10 @@ nav {
 
 @media (max-width: 820px) {
   .cursor-buffer__trail-item {
-    width: clamp(180px, 45vw, 260px);
+    width: clamp(110px, 30vw, 150px);
   }
   .cursor-buffer__title {
-    font-size: clamp(2rem, 8vw, 3rem);
+    font-size: clamp(2.2rem, 8vw, 3.4rem);
   }
   .cursor-buffer__buttons {
     flex-direction: column;
@@ -940,7 +946,7 @@ nav {
 .hgallery {
   position: relative;
   height: 400vh;
-  background: linear-gradient(160deg, #1A0A0E 0%, #2D1010 50%, #1A0A0E 100%);
+  background: linear-gradient(160deg, #3D1A1A 0%, #5C2020 40%, #3D1A1A 100%);
 }
 
 .hgallery-sticky {
@@ -970,7 +976,7 @@ nav {
 }
 
 .hgallery-header p {
-  color: var(--ink-2);
+  color: var(--paper);
   max-width: 44ch;
   line-height: 1.6;
   font-size: 15px;
@@ -985,11 +991,11 @@ nav {
 
 .hgallery-card {
   flex: 0 0 auto;
-  width: 460px;
+  width: 320px;
   border-radius: 16px;
   overflow: hidden;
   background: var(--shore-2);
-  border: 1px solid rgba(255, 255, 255, .15);
+  border: 1px solid rgba(255, 255, 255, .18);
   cursor: pointer;
   box-shadow: 0 16px 40px rgba(0, 0, 0, .45);
   transition: border-color 0.35s ease, transform 0.35s ease;
@@ -1002,8 +1008,10 @@ nav {
 
 .hgallery-card img {
   width: 100%;
-  height: 340px;
+  aspect-ratio: 2 / 3;
+  height: auto;
   object-fit: cover;
+  object-position: center;
   transition: transform .9s cubic-bezier(.16, 1, .3, 1);
 }
 
@@ -1043,15 +1051,15 @@ nav {
 @media (max-width: 820px) {
   .hgallery { height: 350vh; }
   .hgallery-sticky { padding-left: 24px; }
-  .hgallery-card { width: 310px; }
-  .hgallery-card img { height: 230px; }
+  .hgallery-card { width: 240px; }
+  .hgallery-card img { aspect-ratio: 2 / 3; height: auto; }
   .hgallery-progress { left: 24px; right: 24px; }
 }
 
 /* 12. SECTION 6: Client Reviews (Scroll-Driven 5-Review Dynamic Background) */
 .reviews-scroll {
   position: relative;
-  height: 380vh;
+  height: 270vh;
   background: var(--ink);
 }
 
@@ -1060,6 +1068,7 @@ nav {
   top: 0;
   height: 100vh;
   height: 100dvh;
+  min-height: 70vh;
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -1092,19 +1101,19 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  margin-bottom: 34px;
+  margin-bottom: 24px;
 }
 
 .reviews-top-bar h2 {
   font-family: var(--serif);
-  font-size: clamp(34px, 4.6vw, 56px);
+  font-size: clamp(32px, 4.2vw, 52px);
   margin-top: 10px;
   color: var(--pure-white);
 }
 
 .reviews-counter {
   font-family: var(--serif);
-  font-size: clamp(24px, 3vw, 36px);
+  font-size: clamp(22px, 2.8vw, 34px);
   font-weight: 700;
   color: var(--brass);
   letter-spacing: 0.05em;
@@ -1124,12 +1133,12 @@ nav {
 
 .reviews-display-card {
   position: relative;
-  padding: 56px 52px;
+  padding: 40px 42px;
   max-width: 980px;
   margin: 0 auto;
   text-align: center;
   border-radius: 24px;
-  min-height: 380px;
+  min-height: 270px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -1143,16 +1152,16 @@ nav {
 
 .reviews-stars {
   color: var(--brass);
-  font-size: 20px;
+  font-size: 18px;
   letter-spacing: 6px;
-  margin-bottom: 24px;
+  margin-bottom: 16px;
   text-shadow: 0 0 16px rgba(234, 155, 118, 0.4);
 }
 
 .reviews-stack {
   position: relative;
   width: 100%;
-  min-height: 180px;
+  min-height: 140px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1182,10 +1191,10 @@ nav {
 
 .review-slide .review-quote {
   font-family: var(--serif);
-  font-size: clamp(24px, 3.4vw, 42px);
-  line-height: 1.34;
+  font-size: clamp(22px, 3.1vw, 38px);
+  line-height: 1.32;
   color: var(--pure-white);
-  margin-bottom: 24px;
+  margin-bottom: 18px;
   font-style: italic;
   max-width: 34ch;
   text-shadow: 0 2px 20px rgba(0, 0, 0, 0.6);
@@ -1208,7 +1217,7 @@ nav {
   display: flex;
   justify-content: center;
   gap: 12px;
-  margin-top: 36px;
+  margin-top: 24px;
   z-index: 5;
 }
 
@@ -1235,9 +1244,9 @@ nav {
 }
 
 @media (max-width: 820px) {
-  .reviews-scroll { height: 320vh; }
-  .reviews-display-card { padding: 36px 24px; min-height: 320px; }
-  .review-slide .review-quote { font-size: clamp(19px, 5.5vw, 26px); }
+  .reviews-scroll { height: 225vh; }
+  .reviews-display-card { padding: 26px 18px; min-height: 230px; }
+  .review-slide .review-quote { font-size: clamp(17px, 5vw, 24px); }
   .reviews-top-bar { flex-direction: column; align-items: flex-start; gap: 12px; }
 }
 
@@ -1351,7 +1360,19 @@ footer {
   color: var(--accent);
 }
 
-/* 14. BELGRADE ARBOR HARMONIC SILK CANVAS CURSOR STYLES */
+/* 14. BELGRADE ARBOR HARMONIC SILK CANVAS CURSOR & THIN LINE CURSOR */
+.custom-cursor {
+  width: 2px;
+  height: 24px;
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 0;
+  pointer-events: none;
+  position: fixed;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  transition: opacity 0.2s;
+}
+
 .belgrade-cursor-canvas {
   position: fixed;
   inset: 0;
@@ -1362,8 +1383,9 @@ footer {
   mix-blend-mode: screen;
 }
 
-/* On mobile/touch devices, hide the canvas overlay to save GPU cycles */
+/* On mobile/touch devices, hide custom cursors to save GPU cycles */
 @media (max-width: 991px), (hover: none) and (pointer: coarse) {
+  .custom-cursor,
   .belgrade-cursor-canvas {
     display: none !important;
   }
